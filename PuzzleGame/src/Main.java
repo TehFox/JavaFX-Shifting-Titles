@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 
 
 //Public class
+@SuppressWarnings("unused")
+
 public class Main extends Application{
 
 	private static boolean vez=true;
@@ -71,6 +73,11 @@ public class Main extends Application{
 		root.getChildren().add(grid);
 
 
+		/*PROGRAMAÇÃO*/
+		
+		
+		
+		
 		myStage.setScene(myScene);
 		myStage.show();
 	}
