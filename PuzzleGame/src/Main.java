@@ -18,40 +18,72 @@ import javafx.scene.control.SeparatorMenuItem;
 
 public class Main extends Application {
 
-    private int contador = 0;
+	private int contador = 0;
+	private String []Romano= {"I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI"};
+	private String []Letra={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"};
     private GridPane gridpane = new GridPane();
     private static celula [] listacelulas;
     private static final int MAXCELULAS=16;
+    private Button botao;
     String valor;
-    static Button botao;
-    private int c;
+    boolean letra=false;
+    boolean romano=false;
+    boolean valid=false;
+
     @Override
     public void start(Stage stage) throws Exception {
     	listacelulas= new celula[MAXCELULAS];
-    	
+
 		MenuBar menuBar = new MenuBar();
         Pane root = new Pane();
          BorderPane border = new BorderPane();
          Menu fileMenu = new Menu("File");
-		    MenuItem binarioMenuItem = new MenuItem("Binario");
+		    //MenuItem binarioMenuItem = new MenuItem("Binario");
 		    MenuItem letraMenuItem = new MenuItem("Letras");
+		    letraMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+			    public void handle(ActionEvent t) {
+			        letra=true;
+			        valid=false;
+			        root.getChildren().remove(botao);
+			    }
+});
+		    //letraMenuItem.setOnAction(actionEvent -> letra=true;valid=false);
 		    MenuItem romanoMenuItem = new MenuItem("Romano");
-		    fileMenu.getItems().addAll(binarioMenuItem, letraMenuItem,
+		    //romanoMenuItem.setOnAction(actionEvent -> romano=true;valid=false);
+		    romanoMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+						    public void handle(ActionEvent t) {
+						        romano=true;
+						        valid=false;
+						        root.getChildren().remove(botao);
+						    }
+});
+		    fileMenu.getItems().addAll(letraMenuItem,
         new SeparatorMenuItem(), romanoMenuItem);
 
-	Menu inforMenu = new Menu("Informação");
+		Menu inforMenu = new Menu("Informação");
 		MenuItem classifiMenuItem = new MenuItem("Classificação");
 		inforMenu.getItems().addAll(classifiMenuItem);
+System.out.println("PUTA");
 
 
+		do{
 		 for(int i=0;i<4;i++)//Coluna
 			{
 				for(int a=0;a<4;a++)
 				{
+					System.out.printf("CRL");
 					contador++;
-					 ;
-					if(contador!=16)
-						botao = new Button("" + contador);
+
+					if(contador!=16){
+						if(romano==true){
+						botao = new Button("" + Romano[contador]);}
+						if(letra==true){
+							botao = new Button("" + Letra[contador]);}
+							if(romano==false&&letra==false){
+								botao = new Button("" + contador);
+							}
+					}
+
 					else
 					{
 						botao = new Button("");
@@ -66,33 +98,17 @@ public class Main extends Application {
 			        botao.setOnAction(new EventHandler<ActionEvent>() {
 			            @Override
 			            public void handle(ActionEvent e) {
-			           
-			                String aux= botao.getId();
-			                
-			                
-			                for(c=0;c<MAXCELULAS;c++)
-			                {
-			                	if(botao.getId().equals("16"))
-			                	{
-			                		botao.setId(aux);
-			                		System.out.println("id(" + botao.getId() + ") =  " + numButton);
-			                	}
-			                		break;
-			                }
-			                
-			                botao.setId("16");
 			                System.out.println("id(" + botao.getId() + ") =  " + numButton);
-			            	/*listacelulas[c].setPos(16);
-			            	
-			            	listacelulas[16].setPos(c);
-			            	atualizar();*/
-			                
 			            }
 			        });
 			        gridpane.add(botao, i, a);
 				}
 			}
 
+valid=true;
+}while(valid==false);
+			romano=false;
+			letra=false;
 		menuBar.getMenus().addAll(fileMenu,inforMenu);
         border.setTop(menuBar);
         border.setCenter(gridpane);
@@ -100,100 +116,6 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        
-
-    }
-    
-    private void atualizar()
-    {
-    	for(int i=0;i<contador;i++)
-    	{
-    		switch (listacelulas[i].getPos()) {
-			case 1:{
-				gridpane.setColumnIndex(botao, 0);
-				gridpane.setRowIndex(botao, 0);
-				break;
-			}
-			case 2:{
-				gridpane.setColumnIndex(botao, 0);
-				gridpane.setRowIndex(botao, 1);
-				break;
-			}
-			case 3:{
-				gridpane.setColumnIndex(botao, 0);
-				gridpane.setRowIndex(botao, 2);
-				break;
-			}
-			case 4:{
-				gridpane.setColumnIndex(botao, 0);
-				gridpane.setRowIndex(botao, 3);
-				break;
-			}
-			case 5:{
-				gridpane.setColumnIndex(botao, 1);
-				gridpane.setRowIndex(botao, 0);
-				break;
-			}
-			case 6:{
-				gridpane.setColumnIndex(botao, 1);
-				gridpane.setRowIndex(botao, 1);
-				break;
-			}
-			case 7:{
-				gridpane.setColumnIndex(botao, 1);
-				gridpane.setRowIndex(botao, 2);
-				break;
-			}
-			case 8:{
-				gridpane.setColumnIndex(botao, 1);
-				gridpane.setRowIndex(botao, 3);
-				break;
-			}
-			case 9:{
-				gridpane.setColumnIndex(botao, 2);
-				gridpane.setRowIndex(botao, 0);
-				break;
-			}
-			case 10:{
-				gridpane.setColumnIndex(botao, 2);
-				gridpane.setRowIndex(botao, 1);
-				break;
-			}
-			case 11:{
-				gridpane.setColumnIndex(botao, 2);
-				gridpane.setRowIndex(botao, 2);
-				break;
-			}
-			case 12:{
-				gridpane.setColumnIndex(botao, 2);
-				gridpane.setRowIndex(botao, 3);
-				break;
-			}
-			case 13:{
-				gridpane.setColumnIndex(botao, 3);
-				gridpane.setRowIndex(botao, 0);
-				break;
-			}
-			case 14:{
-				gridpane.setColumnIndex(botao, 3);
-				gridpane.setRowIndex(botao, 1);
-				break;
-			}
-			case 15:{
-				gridpane.setColumnIndex(botao, 3);
-				gridpane.setRowIndex(botao, 2);
-				break;
-			}
-			case 16:{
-				gridpane.setColumnIndex(botao, 3);
-				gridpane.setRowIndex(botao, 3);
-				break;
-			}
-
-			default:
-				break;
-			}
-    	}
     }
 
     public static void main(String[] args) {
