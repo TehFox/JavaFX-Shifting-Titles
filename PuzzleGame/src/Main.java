@@ -14,6 +14,7 @@ public class Main extends Application {
     private int contador = 0;
     private GridPane gridpane = new GridPane();
     Button botao;
+    
     @Override
     public void start(Stage stage) throws Exception {
         Pane root = new Pane();
