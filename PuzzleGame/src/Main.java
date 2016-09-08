@@ -1,80 +1,53 @@
-import javafx.application.*;
-import javafx.stage.*;
-import javafx.scene.*;
-import javafx.scene.paint.*;
-import javafx.scene.layout.*;
-import javafx.scene.control.*;
-import javafx.geometry.*;
-import javafx.event.*;
-import javax.swing.JOptionPane;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
+import javafx.stage.Stage;
 
+public class Main extends Application {
 
-//Public class
-public class Main extends Application{
-
-	private static boolean vez=true;
-	int numero=0;
-	GridPane grid;
-	Button button; 
-	
-	//main
-	public static void main(String [] args)
-	{
-		Application.launch(args);
-	}//end main
-
-	@Override
-	//metodo start
-	public void start(Stage myStage)
-	{
-		
-		
-		myStage.setTitle("JavaFX");
-		Group root= new Group();
-		Scene myScene = new Scene(root,500,500,Color.LIGHTBLUE);//definir tamanho da frame
-		
-		grid= new GridPane();
-		
-		//grid.setMaxSize(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-		//grid.setMaxSize(500, 500);
-		
-		for(int i=0;i<4;i++)//Coluna
+    private int contador = 0;
+    private GridPane gridpane = new GridPane();
+    Button botao;
+    @Override
+    public void start(Stage stage) throws Exception {
+        Pane root = new Pane();
+        
+        for(int i=0;i<4;i++)//Coluna
 		{
-			ColumnConstraints coluna = new ColumnConstraints();
-			coluna.setPercentWidth(50);
-			coluna.setFillWidth(true);
-			RowConstraints linha = new RowConstraints(50);
-			linha.setFillHeight(true);
 			for(int a=0;a<4;a++)
 			{
-				numero++;
-				button= new Button();
-				button.setLayoutX(270);
-				button.setLayoutY(70);
-				button.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-				//button.setPrefWidth(200);
-				//button.setPrefHeight(200);
-				
-				if(numero!=16)
-					button.setText(""+numero);
+				contador++;
+				if(contador!=16)
+					botao = new Button("" + contador);
 				else
-					button.setText("");
-				
-				button.setStyle("-fx-font-family:verdana;-fx-font-size:14px;-fx-text-fill:blue;-fx-background-color:white;-fx-border-color:black;");
-				 grid.add(button, i, a);
-			     //grid.getChildren().add(button);
+					botao = new Button("");
+		        final int numButton= contador;
+		        botao.setId("" + contador);
+		        
+		        botao.setPrefSize(150, 150);
+		        botao.setStyle("-fx-font-size:42px");
+		        botao.setOnAction(new EventHandler<ActionEvent>() {
+		            @Override
+		            public void handle(ActionEvent e) {
+		                System.out.println("id(" + botao.getId()  + ") =  " + numButton);
+		            }
+		        });
+		        gridpane.add(botao, i, a);
 			}
-			grid.getColumnConstraints().add(coluna);
-			 grid.getRowConstraints().add(linha);
 		}
-	     
-		root.getChildren().add(grid);
-
-
-		myStage.setScene(myScene);
-		myStage.show();
-	}
-
-
-
-}//end Public Class
+        root.getChildren().add(gridpane);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+  
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
