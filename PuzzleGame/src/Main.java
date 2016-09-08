@@ -18,38 +18,72 @@ import javafx.scene.control.SeparatorMenuItem;
 
 public class Main extends Application {
 
-    private int contador = 0;
+	private int contador = 0;
+	private String []Romano= {"I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII","XIV","XV","XVI"};
+	private String []Letra={"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P"};
     private GridPane gridpane = new GridPane();
     private static celula [] listacelulas;
     private static final int MAXCELULAS=16;
+    private Button botao;
     String valor;
+    boolean letra=false;
+    boolean romano=false;
+    boolean valid=false;
+
     @Override
     public void start(Stage stage) throws Exception {
     	listacelulas= new celula[MAXCELULAS];
-    	
+
 		MenuBar menuBar = new MenuBar();
         Pane root = new Pane();
          BorderPane border = new BorderPane();
          Menu fileMenu = new Menu("File");
-		    MenuItem binarioMenuItem = new MenuItem("Binario");
+		    //MenuItem binarioMenuItem = new MenuItem("Binario");
 		    MenuItem letraMenuItem = new MenuItem("Letras");
+		    letraMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+			    public void handle(ActionEvent t) {
+			        letra=true;
+			        valid=false;
+			        root.getChildren().remove(botao);
+			    }
+});
+		    //letraMenuItem.setOnAction(actionEvent -> letra=true;valid=false);
 		    MenuItem romanoMenuItem = new MenuItem("Romano");
-		    fileMenu.getItems().addAll(binarioMenuItem, letraMenuItem,
+		    //romanoMenuItem.setOnAction(actionEvent -> romano=true;valid=false);
+		    romanoMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+						    public void handle(ActionEvent t) {
+						        romano=true;
+						        valid=false;
+						        root.getChildren().remove(botao);
+						    }
+});
+		    fileMenu.getItems().addAll(letraMenuItem,
         new SeparatorMenuItem(), romanoMenuItem);
 
-	Menu inforMenu = new Menu("Informação");
+		Menu inforMenu = new Menu("Informação");
 		MenuItem classifiMenuItem = new MenuItem("Classificação");
 		inforMenu.getItems().addAll(classifiMenuItem);
+System.out.println("PUTA");
 
 
+		do{
 		 for(int i=0;i<4;i++)//Coluna
 			{
 				for(int a=0;a<4;a++)
 				{
+					System.out.printf("CRL");
 					contador++;
-					final Button botao;
-					if(contador!=16)
-						botao = new Button("" + contador);
+
+					if(contador!=16){
+						if(romano==true){
+						botao = new Button("" + Romano[contador]);}
+						if(letra==true){
+							botao = new Button("" + Letra[contador]);}
+							if(romano==false&&letra==false){
+								botao = new Button("" + contador);
+							}
+					}
+
 					else
 					{
 						botao = new Button("");
@@ -71,6 +105,10 @@ public class Main extends Application {
 				}
 			}
 
+valid=true;
+}while(valid==false);
+			romano=false;
+			letra=false;
 		menuBar.getMenus().addAll(fileMenu,inforMenu);
         border.setTop(menuBar);
         border.setCenter(gridpane);
@@ -78,8 +116,6 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        
-
     }
 
     public static void main(String[] args) {
