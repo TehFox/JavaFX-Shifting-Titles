@@ -13,10 +13,15 @@ public class Main extends Application {
 
     private int contador = 0;
     private GridPane gridpane = new GridPane();
-    Button botao;
+    private static celula [] listacelulas;
+    private static final int MAXCELULAS=16;
+    String valor;
+    
     
     @Override
     public void start(Stage stage) throws Exception {
+    	
+    	listacelulas= new celula[MAXCELULAS];
         Pane root = new Pane();
         
         for(int i=0;i<4;i++)//Coluna
@@ -24,19 +29,24 @@ public class Main extends Application {
 			for(int a=0;a<4;a++)
 			{
 				contador++;
+				final Button botao;
 				if(contador!=16)
 					botao = new Button("" + contador);
 				else
+				{
 					botao = new Button("");
+				}
 		        final int numButton= contador;
-		        botao.setId("" + contador);
-		        
+		        final String numero;
+		        numero="" + contador;
+		        botao.setId(""+contador);
+		        celula cel= new celula(numButton, numero, false, false);
 		        botao.setPrefSize(150, 150);
 		        botao.setStyle("-fx-font-size:42px");
 		        botao.setOnAction(new EventHandler<ActionEvent>() {
 		            @Override
 		            public void handle(ActionEvent e) {
-		                System.out.println("id(" + botao.getId()  + ") =  " + numButton);
+		                System.out.println("id(" + botao.getId() + ") =  " + numButton);
 		            }
 		        });
 		        gridpane.add(botao, i, a);
