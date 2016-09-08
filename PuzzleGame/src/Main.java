@@ -8,7 +8,7 @@ import javafx.geometry.*;
 import javafx.event.*;
 import javax.swing.JOptionPane;
 
-//	Pilinhas
+//	Pilinhas e coninhas
 
 //Public class
 public class Main extends Application{
