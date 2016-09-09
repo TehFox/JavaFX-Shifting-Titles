@@ -44,71 +44,39 @@ public class Main extends Application {
 			    public void handle(ActionEvent t) {
 			        letra=true;
 			        valid=false;
-			        root.getChildren().remove(botao);
+			        root.getChildren().remove(gridpane);
+			        botoes();
 			    }
 });
-		    //letraMenuItem.setOnAction(actionEvent -> letra=true;valid=false);
 		    MenuItem romanoMenuItem = new MenuItem("Romano");
-		    //romanoMenuItem.setOnAction(actionEvent -> romano=true;valid=false);
 		    romanoMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 						    public void handle(ActionEvent t) {
 						        romano=true;
-						        valid=false;
-						        root.getChildren().remove(botao);
+						        root.getChildren().remove(gridpane);
+						        botoes();
+
 						    }
 });
-		    fileMenu.getItems().addAll(letraMenuItem,
+
+MenuItem numeroMenuItem = new MenuItem("Numero");
+		    //romanoMenuItem.setOnAction(actionEvent -> romano=true;valid=false);
+		    numeroMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+						    public void handle(ActionEvent t) {
+						        romano=false;
+						        letra=false;
+						        root.getChildren().remove(gridpane);
+						        botoes();
+
+						    }
+});
+
+botoes();
+		    fileMenu.getItems().addAll(letraMenuItem,numeroMenuItem,
         new SeparatorMenuItem(), romanoMenuItem);
 
 		Menu inforMenu = new Menu("Informação");
 		MenuItem classifiMenuItem = new MenuItem("Classificação");
 		inforMenu.getItems().addAll(classifiMenuItem);
-System.out.println("PUTA");
-
-
-		do{
-		 for(int i=0;i<4;i++)//Coluna
-			{
-				for(int a=0;a<4;a++)
-				{
-					System.out.printf("CRL");
-					contador++;
-
-					if(contador!=16){
-						if(romano==true){
-						botao = new Button("" + Romano[contador]);}
-						if(letra==true){
-							botao = new Button("" + Letra[contador]);}
-							if(romano==false&&letra==false){
-								botao = new Button("" + contador);
-							}
-					}
-
-					else
-					{
-						botao = new Button("");
-					}
-			        final int numButton= contador;
-			        final String numero;
-			        numero="" + contador;
-			        botao.setId(""+contador);
-			        celula cel= new celula(numButton, numero, false, false);
-			        botao.setPrefSize(150, 150);
-			        botao.setStyle("-fx-font-size:42px");
-			        botao.setOnAction(new EventHandler<ActionEvent>() {
-			            @Override
-			            public void handle(ActionEvent e) {
-			                System.out.println("id(" + botao.getId() + ") =  " + numButton);
-			            }
-			        });
-			        gridpane.add(botao, i, a);
-				}
-			}
-
-valid=true;
-}while(valid==false);
-			romano=false;
-			letra=false;
 		menuBar.getMenus().addAll(fileMenu,inforMenu);
         border.setTop(menuBar);
         border.setCenter(gridpane);
@@ -121,4 +89,47 @@ valid=true;
     public static void main(String[] args) {
         launch(args);
     }
+
+    void botoes(){
+		contador=0;
+				 for(int i=0;i<4;i++)//Coluna
+					{
+						for(int a=0;a<4;a++)
+						{
+							System.out.printf("CRL");
+							contador++;
+							if(contador!=16){
+								if(romano==true){
+								botao = new Button("" + Romano[contador]);}
+								if(letra==true){
+									botao = new Button("" + Letra[contador]);}
+									if(romano==false&&letra==false){
+										botao = new Button("" + contador);}
+							}
+
+							else
+							{
+								botao = new Button("");
+							}
+					        final int numButton= contador;
+					        final String numero;
+					        numero="" + contador;
+					        botao.setId(""+contador);
+					        celula cel= new celula(numButton, numero, false, false);
+					        botao.setPrefSize(150, 150);
+					        botao.setStyle("-fx-font-size:42px");
+					        botao.setOnAction(new EventHandler<ActionEvent>() {
+					            @Override
+					            public void handle(ActionEvent e) {
+					                System.out.println("id(" + botao.getId() + ") =  " + numButton);
+					            }
+					        });
+					        gridpane.add(botao, i, a);
+						}
+					}
+letra=false;
+	romano=false;
+	}
+
+
 }
