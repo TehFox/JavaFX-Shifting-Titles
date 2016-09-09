@@ -1,10 +1,15 @@
 import java.util.ArrayList;
 
+import javax.swing.text.View;
+
+import com.sun.javafx.geom.BoxBounds;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -31,6 +36,7 @@ public class Main extends Application {
     boolean letra=false;
     boolean romano=false;
     boolean valid=false;
+    private View v;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -105,18 +111,21 @@ botoes();
 								if(romano==true){
 								botao[contador-1] = new Button("" + Romano[contador-1]);
 								celula cel= new celula(contador-1, Romano[contador-1], false, false);
+								botao[contador-1].setId(""+contador);
 								listacelulas.add(cel);
 								}
 								
 								if(letra==true){
 									botao[contador-1] = new Button("" + Letra[contador-1]);
 									celula cel1= new celula(contador-1, Letra[contador-1], false, false);
+									botao[contador-1].setId(""+contador);
 									listacelulas.add(cel1);
 									}
 								
 									if(romano==false&&letra==false){
 										botao[contador-1] = new Button("" + contador);
 										celula cel2= new celula(contador-1, String.valueOf(contador), false, false);
+										botao[contador-1].setId(""+contador);
 										listacelulas.add(cel2);
 										}
 							}
@@ -124,6 +133,7 @@ botoes();
 							{
 								botao[contador-1] = new Button("");
 								celula cel2= new celula(contador-1, String.valueOf(contador), false, true);
+								botao[contador-1].setId(""+contador);
 								listacelulas.add(cel2);
 							}
 							
@@ -136,12 +146,14 @@ botoes();
 					        botao[contador-1].setPrefSize(150, 150);
 					        botao[contador-1].setStyle("-fx-font-size:42px");
 					        
+
 					        gridpane.add(botao[contador-1], i, a);
 						}
 					}
-letra=false;
+	letra=false;
 	romano=false;
 	}
+    
 
 
 }
