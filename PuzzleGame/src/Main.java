@@ -39,7 +39,6 @@ public class Main extends Application {
 		Pane root = new Pane();
 		BorderPane border = new BorderPane();
 		Menu fileMenu = new Menu("File");
-		//MenuItem binarioMenuItem = new MenuItem("Binario");
 		MenuItem letraMenuItem = new MenuItem("Letras");
 		letraMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent t) {
@@ -71,21 +70,20 @@ public class Main extends Application {
 		});
 
 		botoes();
-		/* TENTATIVA DE BOTOES COM ID
-		 * for(ok=0;ok<16;ok++){
-		 
+
+		/*for(ok=0;ok<16;ok++){
+System.out.println(listacelulas.get(ok).getNum());
 			botao[ok].setOnAction(new EventHandler<ActionEvent>() {
-			public void handle (ActionEvent t){
+				public void handle (ActionEvent t){
 					System.out.print(listacelulas.get(ok).getPos());
-				
-			}
-		});
-		}
-		*/
-		
+
+				}
+			});
+		}*/
+
+
 		fileMenu.getItems().addAll(letraMenuItem,numeroMenuItem,
 				new SeparatorMenuItem(), romanoMenuItem);
-
 		Menu inforMenu = new Menu("Informação");
 		MenuItem classifiMenuItem = new MenuItem("Classificação");
 		inforMenu.getItems().addAll(classifiMenuItem);
@@ -142,13 +140,26 @@ public class Main extends Application {
 				numero="" + contador;
 				botao[contador-1].setPrefSize(150, 150);
 				botao[contador-1].setStyle("-fx-font-size:42px");
+				
+				
+				/*TENTATIVA DE BOTOES EM ARRAY COM ACTION HANDLER
+				 * for(ok=0;ok<16;ok++){
+							botao[ok].setOnAction(new EventHandler<ActionEvent>() {
+								public void handle (ActionEvent t){
+									System.out.print(listacelulas.get(ok).getPos());
+
+								}
+							});
+						}
+				*/
+				
 				/*				botao[contador-1].setOnAction(new EventHandler<ActionEvent>() {
 					public void handle (ActionEvent t){
 							System.out.print(listacelulas.get(contador-1).getNum());
 
 					}
 				});*/
-				
+
 				gridpane.add(botao[contador-1], i, a);
 			}
 		}
@@ -160,9 +171,9 @@ public class Main extends Application {
 
 
 	void verificacao() {
-		
+
 		if(!listacelulas.get(contador-1).isHole()){
-			
+
 		}
 
 
